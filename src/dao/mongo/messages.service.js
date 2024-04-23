@@ -1,4 +1,4 @@
-const messagesModel = require('../models/messages.model')
+const messagesModel = require('../../models/messages.model')
 
 class MessagesServiceManager {
 

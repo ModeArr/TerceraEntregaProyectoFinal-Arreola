@@ -1,6 +1,6 @@
-const cartsModel = require('../models/carts.model')
+const cartsModel = require('../../models/carts.model')
 
-class DBCartManager {
+class CartServiceManager {
 
     async getCarts() {
         try {
@@ -170,4 +170,4 @@ class DBCartManager {
         }
     } 
 }
-module.exports = DBCartManager
+module.exports = CartServiceManager

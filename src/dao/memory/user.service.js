@@ -1,9 +1,9 @@
-const userModel = require('../models/user.models')
-const { isValidPasswd, createHash } = require("../utils/encrypt");
-const DBCartManager = require("../dao/DBCartManager");
-const cart = new DBCartManager()
+const userModel = require('../../models/user.models')
+const { isValidPasswd, createHash } = require("../../utils/encrypt");
+const CartServiceManager = require("../service/cart.service")
+const cartService = new CartServiceManager()
 
-class DBUserManager {
+class UserManagerService {
 
     async checkUserAndPass(email, password) {
         try {
@@ -52,7 +52,7 @@ class DBUserManager {
                 email,
                 password: pswHashed,
                 age,
-                cart: await cart.addCart()
+                cart: await cartService.addCart()
             }
 
             let result = await userModel.create(user).then((res) => {
@@ -89,4 +89,4 @@ class DBUserManager {
 
 }
 
-module.exports = DBUserManager
+module.exports = UserManagerService

@@ -1,6 +1,6 @@
-const messagesModel = require('../models/messages.model')
+const messagesModel = require('../../models/messages.model')
 
-class DBMessagesManager {
+class MessagesServiceManager {
 
     async getAllMessages() {
         try {
@@ -28,4 +28,4 @@ class DBMessagesManager {
     }
 }
 
-module.exports = DBMessagesManager
+module.exports = MessagesServiceManager

@@ -1,5 +1,5 @@
-const userModel = require('../models/user.models')
-const { isValidPasswd, createHash } = require("../utils/encrypt");
+const userModel = require('../../models/user.models')
+const { isValidPasswd, createHash } = require("../../utils/encrypt");
 const CartServiceManager = require("../service/cart.service")
 const cartService = new CartServiceManager()
 
