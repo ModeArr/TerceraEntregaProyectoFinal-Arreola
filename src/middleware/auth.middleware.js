@@ -1,4 +1,4 @@
-const passport = require("passport");
+import passport from "passport";
 
 function authMdw(role) {
   return (req, res, next) => {
@@ -58,7 +58,7 @@ function authMdwFront(req, res, next) {
     return next()
   }
   
-  module.exports = { authMdwFront,
+  export { authMdwFront,
      loggedRedirect,
      authMdw
     }

@@ -1,4 +1,4 @@
-const fs = require("fs/promises")
+import { readFile, writeFile } from "fs/promises"
 
 class ProductManager {
     constructor(path) {
@@ -7,7 +7,7 @@ class ProductManager {
 
     async getProducts() {
         try {
-            const allProducts = await fs.readFile(this.pathDB)
+            const allProducts = await readFile(this.pathDB)
             return JSON.parse(allProducts)
         } catch (error) {
             throw Error(error)
@@ -73,7 +73,7 @@ class ProductManager {
             }
     
            allProducts.push(producto)
-           await fs.writeFile(this.pathDB, JSON.stringify(allProducts));
+           await writeFile(this.pathDB, JSON.stringify(allProducts));
            return producto
         } catch (error) {
             throw Error(error)
@@ -149,7 +149,7 @@ class ProductManager {
                 default:
                     throw new Error('Ingresa un campo a editar correcto')
             }
-            await fs.writeFile(this.pathDB, JSON.stringify(products));
+            await writeFile(this.pathDB, JSON.stringify(products));
             return `Se edito el ${field} del producto con id ${id}` 
         } catch (error) {
             throw Error(error)
@@ -165,7 +165,7 @@ class ProductManager {
             } else {
                 let index = products.indexOf(productId);
                 products.splice(index, 1)
-                await fs.writeFile(this.pathDB, JSON.stringify(products));
+                await writeFile(this.pathDB, JSON.stringify(products));
                 console.log("Se borro correctamente el producto")
                 return `Se borro correctamente el producto con id: ${id}` 
             }
@@ -177,4 +177,4 @@ class ProductManager {
 
 }
 
-module.exports = ProductManager
+export default ProductManager

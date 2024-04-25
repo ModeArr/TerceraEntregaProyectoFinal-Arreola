@@ -1,4 +1,4 @@
-const CartServiceManager = require("../service/cart.service")
+import CartServiceManager from "../dao/mongo/cart.service.js";
 const cartService = new CartServiceManager()
 
 const addCartCtrl = async(req, res) => {
@@ -69,7 +69,7 @@ const deleteAllCartProductsCtrl = async(req,res) => {
 }
 
 
-module.exports = {
+export {
     addCartCtrl,
     getCartProductsCtrl,
     addProductToCartCtrl,

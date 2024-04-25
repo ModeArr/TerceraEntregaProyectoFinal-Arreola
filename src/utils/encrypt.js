@@ -1,16 +1,16 @@
-const bcrypt = require("bcrypt")
+import { genSalt, hashSync, compareSync } from "bcrypt";
 
 const createHash = async (pass) => {
-  const salt = await bcrypt.genSalt()
-  return await bcrypt.hashSync(pass, salt)
+  const salt = await genSalt()
+  return await hashSync(pass, salt)
 };
 
 const isValidPasswd = async (psw, encryptedPsw) => {
-  const isValid = await bcrypt.compareSync(psw, encryptedPsw)
+  const isValid = await compareSync(psw, encryptedPsw)
   return isValid
 };
 
-module.exports = {
+export {
   createHash,
   isValidPasswd,
 };

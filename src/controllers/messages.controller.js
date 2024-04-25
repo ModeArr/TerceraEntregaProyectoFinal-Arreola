@@ -1,4 +1,4 @@
-const MessagesServiceManager = require("../service/messages.service")
+import MessagesServiceManager from "../dao/mongo/messages.service.js";
 const MessagesService = new MessagesServiceManager()
 
 const addMessageCtrl = async(req, res) => {
@@ -27,7 +27,7 @@ const getAllMessagesCtrl = async(req, res) => {
     });
 }
 
-module.exports = {
+export {
     addMessageCtrl,
     getAllMessagesCtrl
 }

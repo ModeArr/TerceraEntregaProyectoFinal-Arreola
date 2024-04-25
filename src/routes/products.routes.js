@@ -1,23 +1,21 @@
-const { Router } = require("express")
-const { authMdw, authMdwFront } = require("../middleware/auth.middleware")
-const {
-    getProductsCtrl,
+import { Router } from "express"
+import { authMdw } from "../middleware/auth.middleware.js"
+import { getProductsCtrl,
     getProductsByIdCtrl,
     addProductCtrl,
     updateProductCtrl,
-    deleteProductCtrl
-} = require("../controllers/products.controller")
+    deleteProductCtrl } from "../controllers/products.controller.js"
 
-const router = Router()
+const productsRoutes = Router()
 
-router.get("/", authMdw(['PUBLIC']), getProductsCtrl)
+productsRoutes.get("/", authMdw(['PUBLIC']), getProductsCtrl)
 
-router.get("/:pid", authMdw(['PUBLIC']), getProductsByIdCtrl)
+productsRoutes.get("/:pid", authMdw(['PUBLIC']), getProductsByIdCtrl)
 
-router.post("/", authMdw(['ADMIN']), addProductCtrl)
+productsRoutes.post("/", authMdw(['ADMIN']), addProductCtrl)
 
-router.put("/:pid", authMdw(['ADMIN']), updateProductCtrl)
+productsRoutes.put("/:pid", authMdw(['ADMIN']), updateProductCtrl)
 
-router.delete("/:pid", authMdw(['ADMIN']), deleteProductCtrl)
+productsRoutes.delete("/:pid", authMdw(['ADMIN']), deleteProductCtrl)
 
-module.exports = router
+export default productsRoutes

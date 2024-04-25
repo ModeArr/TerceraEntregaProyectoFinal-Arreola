@@ -1,8 +1,7 @@
-const config = require("../config/config")
-const jwt = require("jsonwebtoken");
-const passport = require("passport");
+import { JWT_SECRET } from "../config/config.js";
+import jsonwebtoken from "jsonwebtoken";
 
-const secret = config.JWT_SECRET
+const secret = JWT_SECRET
 
 const logoutUserCtrl = async(req, res) => {
     res.clearCookie('jwt')
@@ -13,7 +12,7 @@ const logoutUserCtrl = async(req, res) => {
 }
 
 const loginUserCookieCtrl = async(req, res) => {
-    const token = jwt.sign(JSON.stringify(req.user), secret)
+    const token = jsonwebtoken.sign(JSON.stringify(req.user), secret)
   
     res.cookie("jwt", token, {
       httpOnly: true,
@@ -36,7 +35,7 @@ const loginUserCookieCtrl = async(req, res) => {
       })
   }
 
-module.exports = {
+export {
     logoutUserCtrl,
     loginUserCookieCtrl,
     currentUserCtrl

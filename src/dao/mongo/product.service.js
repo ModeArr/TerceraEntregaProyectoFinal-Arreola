@@ -1,5 +1,5 @@
-const productsModel = require('../../models/products.model')
-const url = require('url');
+import productsModel from '../../models/products.model.js';
+import url from 'url';
 
 class ProductService {
 
@@ -205,4 +205,4 @@ class ProductService {
 
 }
 
-module.exports = ProductService
+export default ProductService

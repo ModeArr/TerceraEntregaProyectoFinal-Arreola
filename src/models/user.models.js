@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
 const collection = "users";
 
@@ -8,7 +8,7 @@ const roleType = {
   PUBLIC: 'PUBLIC',
 }
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   first_name: String,
   last_name: String,
   email: {
@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
   password: String,
   age: Number,
   cart: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'cart',
     required: true
   },
@@ -34,5 +34,5 @@ userSchema.pre('findOne', function () {
   this.populate('cart.carts')
 })
 
-const userModel = mongoose.model(collection, userSchema);
-module.exports = userModel;
+const userModel = model(collection, userSchema);
+export default userModel;

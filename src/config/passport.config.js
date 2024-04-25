@@ -1,18 +1,15 @@
-const passport = require("passport");
-const local = require("passport-local");
-const GithubStrategy = require("passport-github2");
-const UserManagerService = require("../service/user.service")
+import passport from "passport";
+import passportLocal from "passport-local";
+import GithubStrategy from "passport-github2";
+import UserManagerService from "../dao/mongo/user.service.js";
 const userManager = new UserManagerService()
-const jwt = require("passport-jwt");
-const config = require("./config")
+import passportJwt from "passport-jwt";
+import { JWT_SECRET, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from "./config.js";
 
-const JWTStrategy = jwt.Strategy;
-const secret = config.JWT_SECRET
+const JWTStrategy = passportJwt.Strategy;
+const secret = JWT_SECRET
 
-const GITHUB_CLIENT_ID = config.GITHUB_CLIENT_ID;
-const GITHUB_CLIENT_SECRET = config.GITHUB_CLIENT_SECRET
-
-const localStrategy = local.Strategy;
+const localStrategy = passportLocal.Strategy;
 
 const initializePassport = () => {
   passport.use(
@@ -109,7 +106,7 @@ const initializePassport = () => {
     return token
 }
 
-passport.use('jwt', new JWTStrategy({
+  passport.use('jwt', new JWTStrategy({
   jwtFromRequest: cookieExtractor,
   secretOrKey: secret
 }, async (jwtPayload, done) => {
@@ -122,4 +119,4 @@ passport.use('jwt', new JWTStrategy({
 
 };
 
-module.exports = initializePassport;
+export default initializePassport;

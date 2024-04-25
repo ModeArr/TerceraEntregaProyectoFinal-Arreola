@@ -1,4 +1,4 @@
-const cartsModel = require('../../models/carts.model')
+import cartsModel from '../../models/carts.model.js'
 
 class CartServiceManager {
 
@@ -170,4 +170,4 @@ class CartServiceManager {
         }
     } 
 }
-module.exports = CartServiceManager
+export default CartServiceManager

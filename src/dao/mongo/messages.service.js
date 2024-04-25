@@ -1,4 +1,4 @@
-const messagesModel = require('../../models/messages.model')
+import messagesModel from '../../models/messages.model.js'
 
 class MessagesServiceManager {
 
@@ -28,4 +28,4 @@ class MessagesServiceManager {
     }
 }
 
-module.exports = MessagesServiceManager
+export default MessagesServiceManager

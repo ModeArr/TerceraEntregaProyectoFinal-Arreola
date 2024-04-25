@@ -1,11 +1,8 @@
 import mongoose from "mongoose";
 import { PERSISTENCE, MONGO_URL, DB_NAME } from "../config/config.js";
 
-export let Products
-export let Carts
-export let Messages
-export let Users
-const MONGO_URL = MONGO_URL;
+export let Products, Carts, Messages, Users
+
 switch (PERSISTENCE) {
   case "MONGO":
     mongoose
@@ -24,8 +21,7 @@ switch (PERSISTENCE) {
     Products = ProductServiceDao;
     break;
   case "MEMORY":
-    // TODO: Cargar el dao en memoria con await dynamic import
-    console.log("LOAD MEMORY SERVICE***");
+    console.log("LOAD MEMORY");
     const { default: ProductMemServiceDao } = await import(
       "./memory/product.service.js"
     );

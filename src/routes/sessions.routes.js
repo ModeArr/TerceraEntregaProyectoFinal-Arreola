@@ -1,10 +1,6 @@
-const { Router } = require("express");
-const passport = require("passport");
-const {
-  logoutUserCtrl,
-  loginUserCookieCtrl,
-  currentUserCtrl
-} = require("../controllers/users.controller")
+import { Router } from "express";
+import passport from "passport";
+import { logoutUserCtrl, loginUserCookieCtrl, currentUserCtrl } from "../controllers/users.controller.js";
 
 const router = Router();
 
@@ -38,4 +34,4 @@ router.get(
 
 router.get("/current", passport.authenticate("jwt", { session: false }), currentUserCtrl)
 
-module.exports = router;
+export default router;

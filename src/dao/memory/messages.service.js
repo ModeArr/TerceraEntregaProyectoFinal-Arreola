@@ -1,10 +1,10 @@
-const messagesModel = require('../../models/messages.model')
+import { find, create } from '../../models/messages.model'
 
 class MessagesServiceManager {
 
     async getAllMessages() {
         try {
-            const allMessages = await messagesModel.find({}).lean()
+            const allMessages = await find({}).lean()
             return allMessages
         } catch (error) {
             throw Error(error)
@@ -13,7 +13,7 @@ class MessagesServiceManager {
 
     async addMessage(message, user){
         try {
-            const messageAdd = await messagesModel.create({user: user, message: message})
+            const messageAdd = await create({user: user, message: message})
             .then((res) => {
                 return res 
             })
@@ -28,4 +28,4 @@ class MessagesServiceManager {
     }
 }
 
-module.exports = MessagesServiceManager
+export default MessagesServiceManager

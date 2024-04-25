@@ -1,13 +1,13 @@
-const userModel = require('../../models/user.models')
-const { isValidPasswd, createHash } = require("../../utils/encrypt");
-const CartServiceManager = require("../service/cart.service")
+import { findOne, create, findById } from '../../models/user.models';
+import { isValidPasswd, createHash } from "../../utils/encrypt";
+import CartServiceManager from "../service/cart.service";
 const cartService = new CartServiceManager()
 
 class UserManagerService {
 
     async checkUserAndPass(email, password) {
         try {
-            const findUser = await userModel.findOne({ email }).lean()
+            const findUser = await findOne({ email }).lean()
 
             if (!findUser) throw Error("Usuario no registrado")
 
@@ -55,7 +55,7 @@ class UserManagerService {
                 cart: await cartService.addCart()
             }
 
-            let result = await userModel.create(user).then((res) => {
+            let result = await create(user).then((res) => {
                 return res
             }).catch((err) => {
                 throw new Error(err)
@@ -68,7 +68,7 @@ class UserManagerService {
 
     async checkUserID(id) {
         try {
-            const findUser = await userModel.findById(id).lean()
+            const findUser = await findById(id).lean()
             return findUser
 
         } catch (error) {
@@ -78,7 +78,7 @@ class UserManagerService {
 
     async checkUser(email) {
         try {
-            const findUser = await userModel.findOne({ email }).lean()
+            const findUser = await findOne({ email }).lean()
 
             return findUser
 
@@ -89,4 +89,4 @@ class UserManagerService {
 
 }
 
-module.exports = UserManagerService
+export default UserManagerService

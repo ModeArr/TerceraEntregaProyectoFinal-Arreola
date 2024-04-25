@@ -1,14 +1,11 @@
-const { Router } = require("express")
-const path = require("path");
-const pathDB = path.join(`${__dirname}/../dao/products.json`)
-const styles = path.join(`${__dirname}/../public/styles/styles.css`)
-const DBProductManager = require("../dao/DBProductManager");
+import { Router } from "express";
+import DBProductManager from "../dao/mongo/product.service.js";
 const products = new DBProductManager()
-const DBMessagesManager = require("../dao/DBMessagesManager");
+import DBMessagesManager from "../dao/mongo/messages.service.js";
 const messages = new DBMessagesManager()
-const DBCartManager = require("../dao/DBCartManager");
+import DBCartManager from "../dao/mongo/cart.service.js";
 const cart = new DBCartManager()
-const { authMdwFront, loggedRedirect } = require("../middleware/auth.middleware");
+import { authMdwFront, loggedRedirect } from "../middleware/auth.middleware.js";
 
 
 const router = Router()
@@ -147,4 +144,4 @@ router.get('/register', loggedRedirect, (req, res) => {
     })
 })
 
-module.exports = router
+export default router

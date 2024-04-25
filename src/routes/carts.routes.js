@@ -1,13 +1,11 @@
-const { Router } = require("express")
-const { authMdw } = require("../middleware/auth.middleware")
-const {
-    addCartCtrl,
+import { Router } from "express"
+import { authMdw } from "../middleware/auth.middleware.js"
+import { addCartCtrl,
     getCartProductsCtrl,
     addProductToCartCtrl,
     deleteProductCartCtrl,
     editProductQuantityCtrl,
-    deleteAllCartProductsCtrl
-} = require("../controllers/carts.controller")
+    deleteAllCartProductsCtrl } from "../controllers/carts.controller.js"
 
 const router = Router()
 
@@ -23,4 +21,4 @@ router.put("/:cid/product/:pid", authMdw(['USER', 'ADMIN']), editProductQuantity
 
 router.delete("/:cid", authMdw(['USER', 'ADMIN']), deleteAllCartProductsCtrl)
 
-module.exports = router
+export default router

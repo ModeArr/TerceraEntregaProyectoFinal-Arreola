@@ -1,4 +1,4 @@
-const fs = require("fs/promises")
+import { readFile, writeFile } from "fs/promises"
 
 class CartManager {
     constructor(path) {
@@ -7,7 +7,7 @@ class CartManager {
 
     async getCarts() {
         try {
-            const allCarts = await fs.readFile(this.pathDB)
+            const allCarts = await readFile(this.pathDB)
             return JSON.parse(allCarts)
         } catch (error) {
             throw Error(error)
@@ -29,7 +29,7 @@ class CartManager {
             }
 
             allCarts.push(newCart)
-            await fs.writeFile(this.pathDB, JSON.stringify(allCarts));
+            await writeFile(this.pathDB, JSON.stringify(allCarts));
             return `Se creo un nuevo carrito con id ${newCart.id}` 
         } catch (error) {
             throw Error(error)
@@ -66,16 +66,16 @@ class CartManager {
                 quantity
             } 
             allCarts[index].products.push(newProduct)
-            await fs.writeFile(this.pathDB, JSON.stringify(allCarts));
+            await writeFile(this.pathDB, JSON.stringify(allCarts));
             return `Se agrego el producto con id: ${idProduct} al carrito con id: ${idCart}` 
         }else{
             const pIndex = allCarts[index].products.indexOf(product)
             allCarts[index].products[pIndex].quantity++
-            await fs.writeFile(this.pathDB, JSON.stringify(allCarts));
+            await writeFile(this.pathDB, JSON.stringify(allCarts));
             return `Se aumento el producto con id: ${idProduct} al carrito con id: ${idCart}` 
         }
     }
 
 }
 
-module.exports = CartManager
+export default CartManager

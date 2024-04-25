@@ -1,12 +1,12 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
 const collectionName = "carts";
 
-const cartsSchema = new mongoose.Schema({
+const cartsSchema = new Schema({
     products: [
       {
           product: {
-          type: mongoose.Schema.Types.ObjectId,
+          type: Schema.Types.ObjectId,
           ref: "products",
           required: true
           },
@@ -22,5 +22,5 @@ cartsSchema.pre('findOne', function () {
     this.populate('products.product')
 })
 
-const cartsModel = mongoose.model(collectionName, cartsSchema);
-module.exports = cartsModel;
+const cartsModel = model(collectionName, cartsSchema);
+export default cartsModel;

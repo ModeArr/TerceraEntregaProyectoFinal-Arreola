@@ -1,13 +1,13 @@
-const userModel = require('../../models/user.models')
-const { isValidPasswd, createHash } = require("../../utils/encrypt");
-const CartServiceManager = require("../service/cart.service")
+import userModels from '../../models/user.models.js';
+import { isValidPasswd, createHash } from "../../utils/encrypt.js";
+import CartServiceManager from "./cart.service.js";
 const cartService = new CartServiceManager()
 
 class UserManagerService {
 
     async checkUserAndPass(email, password) {
         try {
-            const findUser = await userModel.findOne({ email }).lean()
+            const findUser = await userModels.findOne({ email }).lean()
 
             if (!findUser) throw Error("Usuario no registrado")
 
@@ -55,7 +55,7 @@ class UserManagerService {
                 cart: await cartService.addCart()
             }
 
-            let result = await userModel.create(user).then((res) => {
+            let result = await userModels.create(user).then((res) => {
                 return res
             }).catch((err) => {
                 throw new Error(err)
@@ -68,7 +68,7 @@ class UserManagerService {
 
     async checkUserID(id) {
         try {
-            const findUser = await userModel.findById(id).lean()
+            const findUser = await userModels.findById(id).lean()
             return findUser
 
         } catch (error) {
@@ -78,7 +78,7 @@ class UserManagerService {
 
     async checkUser(email) {
         try {
-            const findUser = await userModel.findOne({ email }).lean()
+            const findUser = await userModels.findOne({ email }).lean()
 
             return findUser
 
@@ -89,4 +89,4 @@ class UserManagerService {
 
 }
 
-module.exports = UserManagerService
+export default UserManagerService

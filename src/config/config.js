@@ -1,6 +1,6 @@
-const dotenv = require("dotenv");
+import { config } from "dotenv";
 
-dotenv.config({ path: `.env.${process.env.NODE_ENV || "dev"}` });
+config({ path: `.env.${process.env.NODE_ENV || "dev"}` });
 
 const {     
     NODE_ENV,
@@ -15,7 +15,7 @@ const {
     COOKIE_SECRET 
     } = process.env
 
-module.exports = {
+export {
     NODE_ENV,
     PORT,
     API_PREFIX,

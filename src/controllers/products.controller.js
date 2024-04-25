@@ -1,5 +1,4 @@
-const url = require('url');
-const ProductServiceManager = require("../service/product.service")
+import ProductServiceManager from "../dao/mongo/product.service.js";
 const productService = new ProductServiceManager()
 
 
@@ -87,10 +86,10 @@ const deleteProductCtrl = async(req, res) => {
 }
 
 
-module.exports = {
+export {
     getProductsCtrl,
     getProductsByIdCtrl,
-    addProductCtrl,
     updateProductCtrl,
-    deleteProductCtrl
+    deleteProductCtrl,
+    addProductCtrl
 }
