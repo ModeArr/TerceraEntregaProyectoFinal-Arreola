@@ -1,11 +1,10 @@
-import MessagesServiceManager from "../dao/mongo/messages.service.js";
-const MessagesService = new MessagesServiceManager()
+import { messagesService } from "../repository/index.js";
 
 const addMessageCtrl = async(req, res) => {
     const newMessage = req.body
     const io = req.app.get('io');
 
-    MessagesService.addMessage(newMessage.message, 
+    messagesService.addMessage(newMessage.message, 
         newMessage.user
         )
         .then(result => {
@@ -19,7 +18,7 @@ const addMessageCtrl = async(req, res) => {
 
 
 const getAllMessagesCtrl = async(req, res) => {
-    MessagesService.getAllMessages().then(result => {
+    messagesService.getAllMessages().then(result => {
         res.status(200).json(result);
     }).catch(err => {
         console.log(err);

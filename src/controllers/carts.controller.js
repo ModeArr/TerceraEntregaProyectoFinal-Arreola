@@ -1,5 +1,4 @@
-import CartServiceManager from "../dao/mongo/cart.service.js";
-const cartService = new CartServiceManager()
+import { cartService } from "../repository/index.js";
 
 const addCartCtrl = async(req, res) => {
     cartService.addCart().then(result => {

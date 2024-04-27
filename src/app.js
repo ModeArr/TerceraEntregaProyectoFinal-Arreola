@@ -7,7 +7,6 @@ import cartsRoutes from "./routes/carts.routes.js"
 import viewRoutes from "./routes/views.routes.js"
 import messagesRoutes from "./routes/messages.routes.js"
 import sessionRoutes from "./routes/sessions.routes.js"
-import { connect } from 'mongoose'
 import cookieParser from "cookie-parser"
 import initializePassport from "./config/passport.config.js"
 import passport from "passport"
@@ -16,8 +15,6 @@ import { Server } from 'socket.io'
 
 const PORT = config.PORT
 const API_PREFIX = config.API_PREFIX
-const MONGO_URL = config.MONGO_URL
-const DB_NAME = config.DB_NAME
 const cookieSecret = config.COOKIE_SECRET 
 
 const app = express()
@@ -28,16 +25,6 @@ app.use(express.urlencoded({ extends: true }));
 app.use(express.json()); 
 app.use(express.static(__dirname + '/public'))
 app.use(cookieParser(cookieSecret));
-
-connect(MONGO_URL, {
-    dbName: DB_NAME,
-  })
-    .then((conn) => {
-        console.log("CONNECTED TO MONGODB")
-    })
-    .catch((err) => {
-        console.log("ERROR CONNECTING TO DB", err)
-    })
 
 const server = app.listen(PORT, () => {
     console.log("SERVER FUNCIONANDO")

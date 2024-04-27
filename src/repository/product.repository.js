@@ -1,4 +1,4 @@
-import ProductDTO from "../dto/product.dto"
+import ProductDTO from "../dto/product.dto.js"
 
 export default class ProductRepository {
     constructor(dao){
@@ -19,10 +19,10 @@ export default class ProductRepository {
     }
 
     updateProduct = async (id, field, edit) => {
-        return this.dao.getProducts(id, field, edit)
+        return this.dao.updateProduct(id, field, edit)
     }
 
     deleteProduct = async (id) => {
-        return this.dao.getProducts(id)
+        return this.dao.deleteProduct(id)
     }
 }

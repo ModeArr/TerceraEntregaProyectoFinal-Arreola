@@ -12,7 +12,8 @@ const {
     GITHUB_CLIENT_SECRET,
     JWT_SECRET,
     JWT_EXPIRE_IN,
-    COOKIE_SECRET 
+    COOKIE_SECRET,
+    PERSISTANCE 
     } = process.env
 
 export {
@@ -26,4 +27,5 @@ export {
     JWT_SECRET,
     JWT_EXPIRE_IN,
     COOKIE_SECRET,
+    PERSISTANCE
 }

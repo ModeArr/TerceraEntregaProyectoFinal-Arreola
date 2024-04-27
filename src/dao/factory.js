@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { PERSISTENCE, MONGO_URL, DB_NAME } from "../config/config.js";
+import { PERSISTANCE, MONGO_URL, DB_NAME } from "../config/config.js";
 
 export let Products, Cart, Messages, User
 
-switch (PERSISTENCE) {
+switch (PERSISTANCE) {
   case "MONGO":
     mongoose
       .connect(MONGO_URL, {

@@ -179,6 +179,9 @@ class ProductService {
         try {
             const deletedProduct = productsModel.findByIdAndDelete(id)
             .then( (res) => {
+                if (!res){
+                    return `No se pudo borrar el id: ${id}` 
+                }
                 return `Se borro correctamente el producto con id: ${id}` 
             })
             .catch( (error) => {

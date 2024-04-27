@@ -1,5 +1,4 @@
-import ProductService from "../repository/index.js";
-const productService = new ProductService()
+import { productService } from "../repository/index.js";
 
 const getProductsCtrl = async(req, res) => {
     const { page = 1, limit = 5, sort } = req.query;

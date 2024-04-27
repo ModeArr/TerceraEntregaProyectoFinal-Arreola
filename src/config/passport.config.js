@@ -1,8 +1,7 @@
 import passport from "passport";
 import passportLocal from "passport-local";
 import GithubStrategy from "passport-github2";
-import UserManagerService from "../dao/mongo/user.service.js";
-const userManager = new UserManagerService()
+import { userService } from "../repository/index.js";
 import passportJwt from "passport-jwt";
 import { JWT_SECRET, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from "./config.js";
 
@@ -24,12 +23,12 @@ const initializePassport = () => {
         const { first_name, last_name, age, email } = req.body;
 
         try {
-          let user = await userManager.checkUser(email)
+          let user = await userService.checkUser(email)
           if (user) {
             return done(null, false);
           }
 
-          const newUser = await userManager.addUser(first_name, last_name, email, Number(age), password)
+          const newUser = await userService.addUser(first_name, last_name, email, Number(age), password)
 
           if (!newUser) {
             return res
@@ -53,7 +52,7 @@ const initializePassport = () => {
       },
       async (username, password, done) => {
         try {
-          let user = await userManager.checkUserAndPass(username, password)
+          let user = await userService.checkUserAndPass(username, password)
 
           return done(null, user);
         } catch (error) {
@@ -74,7 +73,7 @@ const initializePassport = () => {
       async (accessToken, refreshToken, profile, done) => {
         try {
           console.log(profile._json)
-          let user = await userManager.checkUser(profile._json?.email);
+          let user = await userService.checkUser(profile._json?.email);
           if (!user) {
             let addNewUser = {
               first_name: profile._json.name,
@@ -84,7 +83,7 @@ const initializePassport = () => {
               password: "GenerarPassHasheadaRandom", //y esto
             };
             console.log(addNewUser)
-            let newUser = await userManager.addUser(addNewUser.first_name, addNewUser.last_name, addNewUser.email, addNewUser.age, addNewUser.password);
+            let newUser = await userService.addUser(addNewUser.first_name, addNewUser.last_name, addNewUser.email, addNewUser.age, addNewUser.password);
             done(null, newUser);
           } else {
             done(null, user);
