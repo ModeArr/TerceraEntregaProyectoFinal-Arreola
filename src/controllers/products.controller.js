@@ -1,6 +1,5 @@
-import ProductServiceManager from "../dao/mongo/product.service.js";
-const productService = new ProductServiceManager()
-
+import ProductService from "../repository/index.js";
+const productService = new ProductService()
 
 const getProductsCtrl = async(req, res) => {
     const { page = 1, limit = 5, sort } = req.query;
@@ -42,15 +41,7 @@ const addProductCtrl = async(req, res) => {
     const newProduct = req.body
     const io = req.app.get('io');
 
-    productService.addProduct(newProduct.title, 
-        newProduct.description, 
-        newProduct.price, 
-        newProduct.thumbnail, 
-        newProduct.code, 
-        newProduct.stock,
-        newProduct.category,
-        newProduct.status
-        )
+    productService.addProduct(newProduct)
         .then(result => {
             io.emit('product created', result);
             return res.status(200).json(`Se subio correctamente el articulo con id: ${result._id}`);
@@ -58,7 +49,6 @@ const addProductCtrl = async(req, res) => {
             res.status(400).json(err.message)
         });
 }
-
 
 const updateProductCtrl = async(req, res) => {
     const editData = req.body

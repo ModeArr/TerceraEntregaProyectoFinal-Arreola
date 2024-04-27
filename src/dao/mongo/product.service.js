@@ -1,5 +1,4 @@
 import productsModel from '../../models/products.model.js';
-import url from 'url';
 
 class ProductService {
 
@@ -50,59 +49,48 @@ class ProductService {
         }  
     }
 
-    async addProduct(title="", description="", price=0, thumbnail=[], code="", stock=0, category="", status) {
+    async addProduct(product) {
         try {            
-            if (!title.trim()){
+            if (!product.title.trim()){
                 throw new Error('Ingresa un titulo de producto correcto')
             }
     
-            if (!description.trim()){
+            if (!product.description.trim()){
                 throw new Error('Ingresa una descripcion de producto correcto')
             }
     
-            if (price <= 0  || typeof price != 'number'){
+            if (product.price <= 0  || typeof product.price != 'number'){
                 throw new Error('Ingresa un numero de precio correcto')
             }
 
-            if (!thumbnail.length){
+            if (!product.thumbnail.length){
                 throw new Error('Ingresa un thumbnail de producto correcto')
             }
     
-            if (!code.trim()){
+            if (!product.code.trim()){
                 throw new Error('Ingresa un codigo de producto correcto')
             }
     
            const codeDuplicated = await productsModel.findOne({
-            code: code
+            code: product.code
            })
             if (codeDuplicated && Object.keys(codeDuplicated).length !== 0){
                 throw new Error('El codigo esta duplicado')
             }
             
-            if (stock <= 0 || typeof stock != 'number') {
+            if (product.stock <= 0 || typeof product.stock != 'number') {
                 throw new Error('Ingresa un numero mayor a cero para el stock')
             }
 
-            if (!category.trim()) {
+            if (!product.category.trim()) {
                 throw new Error('Ingresa una categoria correctamente')
             }
             
-            if (!typeof variable == "boolean") {
+            if (!typeof product.status == "boolean") {
                 throw new Error('Ingresa un valor booleano correcto si esta disponible o no a status')
             }
-    
-            const producto = {
-                title,
-                description,
-                price,
-                thumbnail,
-                stock,
-                code,
-                status,
-                category
-            }
 
-            let result = await productsModel.create(producto).then((res) => {
+            let result = await productsModel.create(product).then((res) => {
                 return res
             }).catch((err) => {
                 throw new Error(err)
