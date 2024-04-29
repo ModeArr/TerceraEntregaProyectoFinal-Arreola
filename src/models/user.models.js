@@ -20,7 +20,7 @@ const userSchema = new Schema({
   age: Number,
   cart: {
     type: Schema.Types.ObjectId,
-    ref: 'cart',
+    ref: 'carts',
     required: true
   },
   role: { 

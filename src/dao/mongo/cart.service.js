@@ -1,4 +1,7 @@
 import cartsModel from '../../models/carts.model.js'
+import ticketModel from '../../models/ticket.model.js'
+import productsModel from '../../models/products.model.js';
+import TicketDTO from '../../dto/ticket.dto.js'
 
 class CartServiceManager {
 
@@ -169,5 +172,68 @@ class CartServiceManager {
             throw Error(error)
         }
     } 
+
+    async getCartTotalAmount(user){
+        return this.getCartProducts(user.cart)
+        .then((res) => {
+            if (!res){
+                return "No tiene productos"
+            }
+            return res.reduce( ( sum, p ) => sum + (p.product.price * p.quantity) , 0)
+        })
+        .catch((error) => {
+            throw Error(error)
+        })
+    }
+
+    async updateProductStock(pId, quantity){
+        try {
+            const updatedProduct =  productsModel.findOneAndUpdate({_id: pId}, {$set : {
+                'stock': quantity
+            }})
+            .then((res) => {
+                return res
+            })
+            .catch((error) => {
+                throw Error(error)
+            })
+            
+            return updatedProduct
+        } catch (error) {
+            throw Error(error)
+        }
+    }
+
+    async buyCart(user){
+        let cartProducts = await this.getCartProducts(user.cart)
+        let totalAmount = await this.getCartTotalAmount(user)
+        let validStockProducts = cartProducts.filter((p) => p.quantity <= p.product.stock)
+        let invalidStockProducts = cartProducts.filter((p) => p.quantity > p.product.stock)
+        
+        let newTicket = new TicketDTO({totalAmount, user})
+        const ticket = await ticketModel.create(newTicket)
+        .then((res) => {
+            //remover stock
+            validStockProducts.forEach((p) => this.updateProductStock(p.product._id, ( p.product.stock - p.quantity )))
+            
+            //Se actualiza el carrito y si quedan si hay productos sin suficente stock
+            cartsModel.findOneAndUpdate({_id: user.cart}, {$set : {
+                'products': invalidStockProducts
+            }})
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((error) => {
+                throw Error(error)
+            })
+
+            return res
+        })
+        .catch((error) => {
+            throw Error(error)
+        })
+
+        return ticket
+    }
 }
 export default CartServiceManager

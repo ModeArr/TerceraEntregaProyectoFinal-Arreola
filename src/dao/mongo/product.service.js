@@ -175,6 +175,24 @@ class ProductService {
         }
     }
 
+    async updateProductStock(pId, quantity){
+        try {
+            const updatedProduct =  productsModel.findOneAndUpdate({_id: pId}, {$set : {
+                'stock': quantity
+            }})
+            .then((res) => {
+                return res
+            })
+            .catch((error) => {
+                throw Error(error)
+            })
+            
+            return updatedProduct
+        } catch (error) {
+            throw Error(error)
+        }
+    }
+
     async deleteProduct(id){
         try {
             const deletedProduct = productsModel.findByIdAndDelete(id)

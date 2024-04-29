@@ -30,4 +30,8 @@ export default class CartRepository {
     deleteAllCartProducts = async (idCart) => {
         return this.dao.deleteProductCart(idCart)
     }
+
+    buyCart = async (user) => {
+        return this.dao.buyCart(user)
+    }
 }

@@ -9,7 +9,6 @@ const addCartCtrl = async(req, res) => {
     });
 }
 
-
 const getCartProductsCtrl = async(req, res) => {
     const id = req.params.cid
     cartService.getCartProducts(id).then(result => {
@@ -67,6 +66,17 @@ const deleteAllCartProductsCtrl = async(req,res) => {
     });
 }
 
+const buyCartCtrl = async(req,res) => {
+    const user = req.user
+
+    cartService.buyCart(user).then(result => {
+        res.status(200).json(result);
+    }).catch(err => {
+        console.log(err);
+        res.status(400).json(err.message);
+    });
+}
+
 
 export {
     addCartCtrl,
@@ -74,5 +84,6 @@ export {
     addProductToCartCtrl,
     deleteProductCartCtrl,
     editProductQuantityCtrl,
-    deleteAllCartProductsCtrl
+    deleteAllCartProductsCtrl,
+    buyCartCtrl
 }

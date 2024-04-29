@@ -132,6 +132,20 @@ router.get('/carts/:cid', authMdwFront, (req, res) => {
     });
 })
 
+router.get('/cart', authMdwFront, (req, res) => {
+    const idCart = req.user.cart
+
+    cart.getCartProducts(idCart).then(result => {
+        res.render("cart", {
+            title: "Desafio 1 Modulo 2 - Carrito de Compras",
+            product: result
+        })
+    }).catch(err => {
+        console.log(err);
+        res.status(400).json(err.message);
+    });
+})
+
 router.get('/login', loggedRedirect, (req, res) => {
         res.render("login", {
             title: "Desafio 1 Modulo 2 - Login"
