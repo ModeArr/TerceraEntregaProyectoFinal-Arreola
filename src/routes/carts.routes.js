@@ -20,8 +20,8 @@ router.delete("/:cid/product/:pid", authMdw(['USER', 'ADMIN']), deleteProductCar
 
 router.put("/:cid/product/:pid", authMdw(['USER', 'ADMIN']), editProductQuantityCtrl)
 
-router.delete("/:cid", authMdw(['USER', 'ADMIN']), deleteAllCartProductsCtrl)
+router.post("/:cid/purchase", authMdw(['USER', 'ADMIN']), buyCartCtrl)
 
-router.post("/purchase", authMdw(['USER', 'ADMIN']), buyCartCtrl)
+router.delete("/:cid", authMdw(['USER', 'ADMIN']), deleteAllCartProductsCtrl)
 
 export default router

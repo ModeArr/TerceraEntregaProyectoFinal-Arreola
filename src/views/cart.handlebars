@@ -42,21 +42,25 @@
       <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
         <div class="mb-2 flex justify-between">
           <p class="text-gray-700">SubTotal</p>
-          <p class="text-gray-700">$---</p>
+          <p class="text-gray-700">${{total}}</p>
         </div>
         <div class="flex justify-between">
           <p class="text-gray-700">Envio</p>
-          <p class="text-gray-700">$---</p>
+          <p class="text-gray-700">$--</p>
         </div>
         <hr class="my-4" />
         <div class="flex justify-between">
           <p class="text-lg font-bold">Total</p>
           <div class="">
-            <p class="mb-1 text-lg font-bold">$--- MXN</p>
+            <p class="mb-1 text-lg font-bold">${{total}} MXN</p>
             <p class="text-sm text-gray-700">Incluye impuestos</p>
           </div>
         </div>
-        <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Pasar a pagar</button>
+        <form action="./api/carts/{{idCart}}/purchase" method="post">
+        <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+            Comparar carrito
+        </button>
+      </form>
       </div>
     </div>
   </div>

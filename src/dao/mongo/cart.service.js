@@ -32,6 +32,7 @@ class CartServiceManager {
 
     async getCartProducts(id){
         try {
+            console.log(id)
            const findCart = await cartsModel.findById(id).lean()
            .then((res) => {
             return res.products
@@ -183,7 +184,7 @@ class CartServiceManager {
         })
         .catch((error) => {
             throw Error(error)
-        })
+        })        
     }
 
     async updateProductStock(pId, quantity){
@@ -205,12 +206,13 @@ class CartServiceManager {
     }
 
     async buyCart(user){
-        let cartProducts = await this.getCartProducts(user.cart)
-        let totalAmount = await this.getCartTotalAmount(user)
-        let validStockProducts = cartProducts.filter((p) => p.quantity <= p.product.stock)
-        let invalidStockProducts = cartProducts.filter((p) => p.quantity > p.product.stock)
+        const cartProducts = await this.getCartProducts(user.cart)
+        const totalAmount = await this.getCartTotalAmount(user)
+        const validStockProducts = cartProducts.filter((p) => p.quantity <= p.product.stock)
+        const invalidStockProducts = cartProducts.filter((p) => p.quantity > p.product.stock)
+        console.log(totalAmount)
         
-        let newTicket = new TicketDTO({totalAmount, user})
+        const newTicket = new TicketDTO({totalAmount, user})
         const ticket = await ticketModel.create(newTicket)
         .then((res) => {
             //remover stock

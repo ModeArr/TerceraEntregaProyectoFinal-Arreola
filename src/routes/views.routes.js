@@ -132,13 +132,16 @@ router.get('/carts/:cid', authMdwFront, (req, res) => {
     });
 })
 
-router.get('/cart', authMdwFront, (req, res) => {
+router.get('/cart', authMdwFront, async(req, res) => {
     const idCart = req.user.cart
+    const cartTotal = await cart.getCartTotalAmount(req.user)
 
     cart.getCartProducts(idCart).then(result => {
         res.render("cart", {
             title: "Desafio 1 Modulo 2 - Carrito de Compras",
-            product: result
+            product: result,
+            total: cartTotal,
+            idCart: idCart
         })
     }).catch(err => {
         console.log(err);

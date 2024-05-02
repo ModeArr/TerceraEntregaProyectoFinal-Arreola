@@ -68,6 +68,11 @@ const deleteAllCartProductsCtrl = async(req,res) => {
 
 const buyCartCtrl = async(req,res) => {
     const user = req.user
+    const cartId = req.params.cid
+
+    if (user.cart !== cartId) {
+        throw Error("Cart dont match user cart")
+    }
 
     cartService.buyCart(user).then(result => {
         res.status(200).json(result);
